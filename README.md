@@ -2,7 +2,7 @@
 This web application displays San Francisco filming locations on a map.
 
 #### Technology stack details
-- **Ruby** 2.0.0
+- **Ruby** 2.0.0p195
 - **Rails** 4.0.2
 
 **Note**: See /Gemfile for more details
