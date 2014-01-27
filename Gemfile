@@ -38,6 +38,9 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.0.0.beta'
 end
 
+# Use httparty for making calls to external endpoints
+gem "httparty", "~> 0.12.0"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
