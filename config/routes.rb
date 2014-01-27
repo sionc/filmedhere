@@ -1,4 +1,8 @@
 Filmedhere::Application.routes.draw do
+  resources :locations
+
+  resources :films
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

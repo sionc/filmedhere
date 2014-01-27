@@ -1,0 +1,44 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Raw address:</strong>
+  <%= @location.raw_address %>
+</p>
+
+<p>
+  <strong>Formatted address:</strong>
+  <%= @location.formatted_address %>
+</p>
+
+<p>
+  <strong>Latitude:</strong>
+  <%= @location.latitude %>
+</p>
+
+<p>
+  <strong>Longitude:</strong>
+  <%= @location.longitude %>
+</p>
+
+<p>
+  <strong>Icon url:</strong>
+  <%= @location.icon_url %>
+</p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @location.name %>
+</p>
+
+<p>
+  <strong>Rating:</strong>
+  <%= @location.rating %>
+</p>
+
+<p>
+  <strong>Google places:</strong>
+  <%= @location.google_places_id %>
+</p>
+
+<%= link_to 'Edit', edit_location_path(@location) %> |
+<%= link_to 'Back', locations_path %>
