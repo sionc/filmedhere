@@ -1,47 +1,29 @@
 class Filmedhere.Views.FilmsIndex extends Backbone.View
 
   template: JST['films/index']
+  map = null
+  markers = []
   
   initialize: ->
-    @collection.on('sync', @render, this)
-    google.maps.event.addDomListener(window, 'load', @map_initialize);
+    google.maps.event.addDomListener(window, 'load',  @initialize_map)
+    @collection.on('sync', @render_map, this)    
    
-  map_initialize: ->
-    myLatlng = new google.maps.LatLng(37.7674159,-122.4747325)
-    
+  initialize_map: ->
     mapOptions = 
       center: new google.maps.LatLng(37.7674159,-122.4747325)
       zoom: 13
-
-    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions)
-
-    contentString = '<div id="content">'+
-          '<div id="siteNotice">'+
-          '</div>'+
-          '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
-          '<div id="bodyContent">'+
-          '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
-          'sandstone rock formation in the southern part of the '+
-          'Heritage Site.</p>'+
-          '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
-          'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
-          '(last visited June 22, 2009).</p>'+
-          '</div>'+
-          '</div>';
-
-    infowindow = new google.maps.InfoWindow(
-      content: contentString
-      maxWidth: 200  
-    )
-
+    
+    map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions)   
+      
+  render_map:  ->
+    latLng = new google.maps.LatLng(37.7674159,-122.4747325)
     marker = new google.maps.Marker(
-      position: myLatlng
+      position: latLng
       map: map
       title: 'Test Window'
     )
-      
-    google.maps.event.addListener(marker, 'click', -> infowindow.open(map,marker))      
-      
-  render: ->
+    markers.push(marker)
+    
+    # Rendering the collection in the container
     $(@el).html(@template(films: @collection))
     this
