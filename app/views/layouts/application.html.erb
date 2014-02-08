@@ -5,6 +5,73 @@
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+  
+  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+      <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #map-canvas { height: 100% }
+      </style>
+      
+	  <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsc4TBqpjnccF-6Fltp9DcbmIeftXTRuM&sensor=false">
+      </script>
+      
+	  <script type="text/javascript">
+        // function initialize() {
+//           var mapOptions = {
+//             center: new google.maps.LatLng(37.7674159,-122.4747325),
+//             zoom: 13
+//           };
+//           var map = new google.maps.Map(document.getElementById("map-canvas"),
+//               mapOptions);
+//         }
+//         google.maps.event.addDomListener(window, 'load', initialize);
+// 		
+		// This example displays a marker at the center of Australia.
+		// When the user clicks the marker, an info window opens.
+		// The maximum width of the info window is set to 200 pixels.
+
+		function initialize() {
+		  var myLatlng = new google.maps.LatLng(37.7674159,-122.4747325);
+          var mapOptions = {
+            center: new google.maps.LatLng(37.7674159,-122.4747325),
+            zoom: 13
+          };
+
+		  var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+
+		  var contentString = '<div id="content">'+
+		      '<div id="siteNotice">'+
+		      '</div>'+
+		      '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+		      '<div id="bodyContent">'+
+		      '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+		      'sandstone rock formation in the southern part of the '+
+		      'Heritage Site.</p>'+
+		      '<p>Attribution: Uluru, <a href="http://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+		      'http://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+		      '(last visited June 22, 2009).</p>'+
+		      '</div>'+
+		      '</div>';
+
+		  var infowindow = new google.maps.InfoWindow({
+		      content: contentString,
+		      maxWidth: 200
+		  });
+
+		  var marker = new google.maps.Marker({
+		      position: myLatlng,
+		      map: map,
+		      title: 'Test Window'
+		  });
+		  google.maps.event.addListener(marker, 'click', function() {
+		    infowindow.open(map,marker);
+		  });
+		}
+
+		google.maps.event.addDomListener(window, 'load', initialize);
+      </script>
 </head>
 <body>
 
