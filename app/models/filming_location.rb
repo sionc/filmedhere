@@ -1,4 +1,4 @@
 class FilmingLocation < ActiveRecord::Base
-  belongs_to :films
-  belongs_to :locations
+  belongs_to :film
+  belongs_to :location
 end
