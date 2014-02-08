@@ -21,7 +21,6 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
         lat = film_loc['latitude']
         lng = film_loc['longitude']
         latLng = new google.maps.LatLng lat, lng
-        console.log latLng 
         marker = new google.maps.Marker(
           position: latLng
           map: map
