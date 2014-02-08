@@ -1,0 +1,11 @@
+<h1>Filmed Here</h1>
+
+<%= @films.length %> 
+
+<ul>
+<% for film in @films.models: %>
+  <li><%= film.get('title') %></li>
+<% end %>
+</ul>
+
+
