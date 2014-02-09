@@ -1,0 +1,20 @@
+{
+   "html_attributions" : [],
+   "results" : [
+      {
+         "geometry" : {
+            "location" : {
+               "lat" : 37.795235,
+               "lng" : -122.403607
+            }
+         },
+         "icon" : "http://maps.gstatic.com/mapfiles/place_api/icons/geocode-71.png",
+         "id" : "c6158d7d6f3213c0050750fe198ae5bfdd5cb2d2",
+         "name" : "655 Montgomery St",
+         "reference" : "CqQBnAAAALV7f0CjwGibCcXKHJ3uuaMlXGMn0yFWnPNDHyH_aiMDRxhKioBKFMKb3Z8RcdiaTx1Gro1xv9XudpPihuqd824sihyr9T6XD_gC5bn7Pui3t_7cLfQQUMQGN4WRaI2IVgGh8WUNihha8JcHYVuAN_CNrrbIrHxTOTdizcM_PN_rQe1ciXeyF0Zqehwwutb0Sx4E3M5QSoFjze4L2MFy26ISEH3f3Kr8vVYEoXYppgfTAx0aFIWUdjEvyQt6LGFBzEWZbZ_Yi_VV",
+         "types" : [ "street_address" ],
+         "vicinity" : "San Francisco"
+      }
+   ],
+   "status" : "OK"
+}

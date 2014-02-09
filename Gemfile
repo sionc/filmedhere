@@ -47,6 +47,11 @@ gem "backbone-on-rails", "~> 1.1.0.0"
 # Use jquery-ui for autocompletion
 gem "jquery-ui-rails"
 
+# Use webmock to mock web service requests for the test environment only
+group :test do
+  gem "webmock", "~> 1.17.2"
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

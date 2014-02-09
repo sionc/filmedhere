@@ -3,6 +3,8 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'webmock/rspec'
+# WebMock.disable_net_connect!(allow_localhost: true)
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -44,4 +46,20 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+  
+  # Stubbing web service requests to SF Data and Google places in order to 
+  # speed up tests and from reaching API limits
+  config.before(:each) do
+    
+    # stub web service request to SF data for filming location info
+    films_file_path = Rails.root.join('spec', 'support', 'fixtures', 'sf_films.json').to_s
+    stub_request(:get, /.*data.sfgov.org\/resource\/yitu-d5am.json.*/).
+      to_return(:status => 200, :body => File.open(films_file_path).read, :headers => {'Content-Type' => 'application/json'})
+    
+    # stub web service request to google places for resolving location data
+    resolved_locations_file_path = Rails.root.join('spec', 'support', 'fixtures', 'resolved_locations.json').to_s
+    stub_request(:get, /.*maps.googleapis.com\/maps\/api\/place\/nearbysearch\/json.*/).
+      to_return(:status => 200, :body => File.open(resolved_locations_file_path).read, :headers => {'Content-Type' => 'application/json'})
+  
+  end
 end

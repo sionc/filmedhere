@@ -1,0 +1,23 @@
+[{
+  "title" : "A Night Full of Rain",
+  "actor_1" : "Candice Bergen",
+  "locations" : "San Francisco Chronicle (901 Mission Street at 15th Street)",
+  "fun_facts" : "The San Francisco Zodiac Killer of the late 1960s sent his notes and letters to the Chronicle's offices.",
+  "release_year" : "1978",
+  "production_company" : "Liberty Film",
+  "distributor" : "Warner Bros. Pictures",
+  "actor_2" : "Giancarlo Gianni",
+  "writer" : "Lina Wertmuller",
+  "director" : "Lina Wertmuller"
+  },{
+  "title" : "50 First Dates",
+  "actor_1" : "Adam Sandler",
+  "locations" : "Rainforest Café (145 Jefferson Street)",
+  "release_year" : "2004",
+  "production_company" : "Columbia Pictures Corporation",
+  "distributor" : "Columbia Pictures",
+  "actor_2" : "Drew Barrymore",
+  "writer" : "George Wing",
+  "director" : "Peter Segal",
+  "actor_3" : "Rob Schneider"
+}]

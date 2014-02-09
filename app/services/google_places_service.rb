@@ -10,10 +10,9 @@ class GooglePlacesService
                         :radius => search_radius,
                         :keyword => raw_address}}
               
-    response = self.class.get("/maps/api/place/nearbysearch/json?", options)
-    
+    response = self.class.get("/maps/api/place/nearbysearch/json?", options)     
     res_loc = nil;
-    if (response.code == 200 and response.message == "OK")
+    if (response.code == 200)
       # parsed response contains an array of resolved location results  
       results = response.parsed_response["results"]
       
