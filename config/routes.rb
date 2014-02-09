@@ -1,6 +1,5 @@
 Filmedhere::Application.routes.draw do
   get "main/index"
-  get "pages/home"
 
   scope "api" do
     resources :locations
