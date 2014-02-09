@@ -5,21 +5,28 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
   markers = []
   
   initialize: ->
-    google.maps.event.addDomListener window, 'load',  @initialize_map
-    @collection.on 'sync', @render_markers, this    
+    google.maps.event.addDomListener window, 'load',  @initializeMap
+    @collection.on 'sync', @renderMarkers, this    
    
-  initialize_map: ->
+  initializeMap: ->
     mapOptions = 
       center: new google.maps.LatLng 37.7674159,-122.4747325
       zoom: 13
     
     map = new google.maps.Map document.getElementById('map-canvas'), mapOptions   
       
-  render_markers:  ->
+  renderMarkers: ->
+    @createMarkers @collection
+    
+    # Rendering the collection in the container
+    $(@el).html(@template(films: @collection))
+    this
+    
+  createMarkers: (@collection) -> 
     @collection.each((film) ->
-      for film_loc in film.get 'locations'
-        lat = film_loc['latitude']
-        lng = film_loc['longitude']
+      for filmLoc in film.get 'locations'
+        lat = filmLoc['latitude']
+        lng = filmLoc['longitude']
         latLng = new google.maps.LatLng lat, lng
         marker = new google.maps.Marker(
           position: latLng
@@ -28,7 +35,3 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
         )
         markers.push marker
     )
-    
-    # Rendering the collection in the container
-    $(@el).html(@template(films: @collection))
-    this
