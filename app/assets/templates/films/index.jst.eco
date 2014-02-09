@@ -1,11 +1,5 @@
-<h1>Filmed Here</h1>
-
-<%= @films.length %> 
-
-<ul>
-<% for film in @films.models: %>
-  <li><%= film.get('title') %></li>
-<% end %>
-</ul>
-
+<form id="film-search">
+  <input type="text" name="name" id="film-search-textbox">
+  <input type="submit" value="Search">
+</form>
 

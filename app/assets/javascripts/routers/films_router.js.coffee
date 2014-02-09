@@ -12,4 +12,6 @@ class Filmedhere.Routers.Films extends Backbone.Router
     $('#container').html(view.render().el)
 
   show: (id) ->
-    alert "Film #{id}"
+    film = @collection.get(id)
+    title = film.get('title')
+    alert "Film #{title}"
