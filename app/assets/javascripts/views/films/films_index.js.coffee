@@ -8,31 +8,38 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
   map = null
   sf = null
   markers = []
+  filmIdsByTitleReleaseYear = {}
   
   initialize: ->
     sf = new google.maps.LatLng 37.7674159,-122.4747325
     google.maps.event.addDomListener window, 'load', @initializeMap
-    @collection.on 'sync', @renderMarkers, this    
+    @collection.on 'sync', @initializeUIElements, this    
    
   initializeMap: ->
     mapOptions = 
       center: sf
-      zoom: 13
+      zoom: 12
     
     map = new google.maps.Map document.getElementById('map-canvas'), mapOptions
   
-  renderMarkers: ->
+  initializeUIElements: ->
     for film in @collection.models
       @createMarker film
-    
+      key = film.get('title') + ' (' + film.get('release_year') + ')' 
+      filmIdsByTitleReleaseYear[key] = film.get('id')
+   
     # Rendering the collection in the container
     $(@el).html(@template(films: @collection))
     this
+    
+    $('#film-search-textbox').autocomplete(
+      source: Object.keys filmIdsByTitleReleaseYear
+    )
   
   updateMap: (event) ->
     event.preventDefault()
-    id = $('#film-search-textbox').val()
-    film = @collection.get(id)
+    nameReleaseYear = $('#film-search-textbox').val()
+    film = @collection.get(filmIdsByTitleReleaseYear[nameReleaseYear])
     @clearMarkers()
     @createMarker film
   

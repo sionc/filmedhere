@@ -44,6 +44,9 @@ gem "httparty", "~> 0.12.0"
 # Use backbone for organizing the single page app 
 gem "backbone-on-rails", "~> 1.1.0.0"
 
+# Use jquery-ui for autocompletion
+gem "jquery-ui-rails"
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
