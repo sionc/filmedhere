@@ -26,7 +26,7 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
     
     mapOptions = 
       center: sf
-      zoom: 12
+      zoom: 13
     
     map = new google.maps.Map document.getElementById('map-canvas'), mapOptions
   
@@ -64,8 +64,14 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
     @createMarker film
   
   createMarker: (film) ->
+    title = film.get('title')
+    releaseYear = film.get('release_year')
+    titleReleaseYear = title + ' (' + releaseYear + ')'
+    
     # for each location associated with this film 
     for filmLoc in film.get 'locations'
+      rawAddress = filmLoc['raw_address']
+      titleAtRawAddress = title + ' @ ' + rawAddress
       
       # fetch the latitude and longitude
       lat = filmLoc['latitude']
@@ -76,8 +82,17 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
       marker = new google.maps.Marker(
         position: latLng
         map: map
-        title: film.get('title') + '_' + latLng
+        title: titleAtRawAddress
       )
+      
+      # initialize the content object for the info window
+      infoWindowOptions = 
+        header: titleReleaseYear
+        content1: rawAddress  
+        content2: 'San Francisco, CA'
+      
+      # Create an info window for this marker
+      @createInfoWindow marker, infoWindowOptions
       
       # keep track of all markers on the page
       markers.push marker
@@ -88,3 +103,24 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
       marker.setMap null
     
     markers.length = 0
+    
+  createInfoWindow: (marker, options) -> 
+    # create the content for the info window
+    contentString = 
+      '<div>'+
+        '<h5>'+options.header+'</h5>'+
+        '<hr>'+
+        '<div>'+
+          '<p>'+options.content1+'</p>'+
+          '<p>'+ options.content2+'</p>'+
+        '</div>'+
+      '</div>'
+    
+    # create a new info window
+    infowindow = new google.maps.InfoWindow(
+      content: contentString
+      maxWidth: 300
+    )
+    
+    # when a marker is clicked, open the info window
+    google.maps.event.addListener marker, 'click', -> infowindow.open map, marker 
