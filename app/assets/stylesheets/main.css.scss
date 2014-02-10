@@ -6,6 +6,11 @@
   height: 100%; 
   }
 
-#map-canvas img{
+#map-canvas img {
   max-width: inherit;
   }
+  
+ul.ui-autocomplete {
+  top: 50px!important;
+  font: inherit!important;
+}
