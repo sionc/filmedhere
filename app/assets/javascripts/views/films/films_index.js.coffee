@@ -33,16 +33,19 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
   initializeUIElements: ->
     for film in @collection.models
       # Create markers for each location associated with this film
-      @createMarker film
+      @createMarkers film
       
       # Create a lookup table for autocomplete {'filmTitle (filmReleaseYear)' => filmId}
       key = film.get('title') + ' (' + film.get('release_year') + ')' 
       filmIdsByTitleReleaseYear[key] = film.get('id')
    
-    # render the search control
-    $(@el).html(@template(films: @collection))
+    # render the UI elements in the nav bar
+    $(@el).html(@template())
     this
     
+    @initializeAutocompletion()
+  
+  initializeAutocompletion: ->
     # initialize the autocompletion search textbox
     $('#film-search-textbox').autocomplete(
       source: Object.keys filmIdsByTitleReleaseYear
@@ -60,10 +63,16 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
     # clear all existing markers
     @clearMarkers()
     
-    # create a new marker for this film
-    @createMarker film
+    # creates new markers for each location associated with this film
+    @createMarkers film
+    
+    # update the UI elements in the nav bar
+    $(@el).html(@template(film: film))
+    this
+    
+    @initializeAutocompletion()
   
-  createMarker: (film) ->
+  createMarkers: (film) ->
     title = film.get('title')
     releaseYear = film.get('release_year')
     titleReleaseYear = title + ' (' + releaseYear + ')'
