@@ -55,6 +55,12 @@ end
 # Enable heroku integration
 gem 'rails_12factor', group: :production
 
+# Use twitter bootstrap to style the pages
+gem 'bootstrap-sass'
+group :development do
+  gem 'rails_layout'
+end
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 

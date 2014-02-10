@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Filmedhere</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-  <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-  <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyBsc4TBqpjnccF-6Fltp9DcbmIeftXTRuM&sensor=false" %>
-</head>
-<body>
-
-<%= yield %>
-
-</body>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= content_for?(:title) ? yield(:title) : "Filmedhere" %></title>
+    <meta name="description" content="<%= content_for?(:description) ? yield(:description) : "Filmedhere" %>">
+    <%= stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=AIzaSyBsc4TBqpjnccF-6Fltp9DcbmIeftXTRuM&sensor=false" %>
+  </head>
+  <body>
+    <header>
+      <%= render 'layouts/navigation' %>
+    </header>
+    <main role="main">
+       <%= render 'layouts/messages' %>
+       <%= yield %>
+    </main>
+  </body>
 </html>
