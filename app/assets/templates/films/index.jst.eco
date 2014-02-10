@@ -7,5 +7,12 @@
   </button>
 </form>
 
-<p class="navbar-text navbar-right">Showing filming locations <%= "for '" + @film.get('title') + "' " if @film? %></strong>in San Francisco, CA</p>
-
+<p class="navbar-text navbar-right">
+<% if @films?: %>
+  Showing filming locations in San Francisco, CA
+<% else if @film?: %>
+  Showing filming locations for '<%= @film.get('title') %>' in San Francisco, CA
+<% else: %>
+  No filming locations found. Please try another film.
+<% end %>
+</p>

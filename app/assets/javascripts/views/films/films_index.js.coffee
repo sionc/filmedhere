@@ -40,7 +40,7 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
       filmIdsByTitleReleaseYear[key] = film.get('id')
    
     # render the UI elements in the nav bar
-    $(@el).html(@template())
+    $(@el).html(@template(films: @collection))
     this
     
     @initializeAutocompletion()
@@ -60,16 +60,25 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
     # get the associated film using the id from the lookup table
     film = @collection.get(filmIdsByTitleReleaseYear[titleReleaseYear])
     
-    # clear all existing markers
-    @clearMarkers()
+    if film?
     
-    # creates new markers for each location associated with this film
-    @createMarkers film
+      # clear all existing markers
+      @clearMarkers()
     
-    # update the UI elements in the nav bar
-    $(@el).html(@template(film: film))
-    this
+      # creates new markers for each location associated with this film
+      @createMarkers film
+      
+      # update the UI elements in the nav bar
+      $(@el).html(@template(film: film))
+      this
     
+    else
+      
+      # update the UI elements in the nav bar
+      $(@el).html(@template())
+      this
+    
+    # reinitialize autocompletion
     @initializeAutocompletion()
   
   createMarkers: (film) ->
