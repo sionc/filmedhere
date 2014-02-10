@@ -52,6 +52,9 @@ group :test do
   gem "webmock", "~> 1.17.2"
 end
 
+# Enable heroku integration
+gem 'rails_12factor', group: :production
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
