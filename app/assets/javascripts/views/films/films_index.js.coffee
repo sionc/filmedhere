@@ -13,6 +13,7 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
   sf = null
   markers = []
   filmIdsByTitleReleaseYear = {}
+  filmKeys = []
   
   initialize: ->
     # initialize the map
@@ -38,6 +39,7 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
       # Create a lookup table for autocomplete {'filmTitle (filmReleaseYear)' => filmId}
       key = film.get('title') + ' (' + film.get('release_year') + ')' 
       filmIdsByTitleReleaseYear[key] = film.get('id')
+      filmKeys.push key
    
     # render the UI elements in the nav bar
     $(@el).html(@template(films: @collection))
@@ -48,7 +50,10 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
   initializeAutocompletion: ->
     # initialize the autocompletion search textbox
     $('#film-search-textbox').autocomplete(
-      source: Object.keys filmIdsByTitleReleaseYear
+      # limit the number of results to 10
+      source: (request, response) -> 
+        results = $.ui.autocomplete.filter filmKeys, request.term
+        response results.slice(0, 10)
     )
   
   updateMap: (event) ->
