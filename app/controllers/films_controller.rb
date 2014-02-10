@@ -4,7 +4,7 @@ class FilmsController < ApplicationController
   # GET /films
   # GET /films.json
   def index
-    @films = Film.all.limit(5)
+    @films = Film.all
 
     respond_to do |format|
       format.html # index.html.erb
