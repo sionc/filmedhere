@@ -1,5 +1,7 @@
 ## FilmedHere Web Application
 This web application displays San Francisco filming locations on a map.
+This app is deployed on Heroku and you can get to it using the following url:
+http://filmedhere.herokuapp.com/
 
 #### Technology stack details
 - **Ruby** 2.0.0p195
