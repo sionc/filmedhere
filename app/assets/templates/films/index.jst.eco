@@ -1,5 +1,9 @@
-<form id="film-search">
-  <input type="text" name="name" id="film-search-textbox">
-  <input type="submit" value="Search">
+<form id="film-search" class="navbar-form navbar-left" role="search">
+  <div class="form-group">
+    <input type="text" id="film-search-textbox" class="form-control" placeholder="Film title">
+  </div>
+  <button type="submit" class="btn btn-default">
+    <span class="glyphicon glyphicon-search"></span>
+  </button>
 </form>
 

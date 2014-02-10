@@ -2,13 +2,13 @@
 @import "bootstrap";
 
 html { 
-  height: 100% 
+  height: 100%; 
   }
 
 body { 
   height: 100%; 
   margin: 0; 
-  padding: 0 
+  padding: 0; 
   }
 
 // make all images responsive by default
@@ -18,7 +18,14 @@ img {
   }
 // override for the 'Home' navigation link
 .navbar-brand {
-  font-size: inherit;
+  font-family: 'Lobster', cursive;
+  pointer-events: none;
+  cursor: default;
+  float: left;
+  padding: 15px 15px;
+  font-size: 20px;
+  line-height: 20px;
+  height: 20px;
   }
 
 // THESE ARE EXAMPLES YOU CAN MODIFY
@@ -45,9 +52,9 @@ img {
 main {
   @extend .container;
   background-color: #eee;
-  padding-bottom: 80px;
   width: 100%;
-  margin-top: 51px; // accommodate the navbar
+  margin: 51px 0 0 0; // accommodate the navbar
+  padding: 0;
   height: 100%;
   }
 section {
