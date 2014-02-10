@@ -79,9 +79,9 @@ Migrate the database after it has been setup
 #### Services
 The app uses 3 services:
 
-1. FilmingLocationService - creates records in the database based on the latest filming location information
-2. GooglePlacesService - fetches lat long and other relevant information about a location
-3. SFDataService - fetches information about the latest filming locations in San Francisco
+1. **FilmingLocationService** - creates records in the database based on the latest filming location information
+2. **GooglePlacesService** - fetches lat long and other relevant information about a location
+3. **SFDataService** - fetches information about the latest filming locations in San Francisco
 
 #### Deployment instructions
 Run the following command in the app directory
