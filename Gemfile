@@ -61,6 +61,9 @@ group :development do
   gem 'rails_layout'
 end
 
+# Use new relic gem to integrate monitoring with heroku
+gem 'newrelic_rpm'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
