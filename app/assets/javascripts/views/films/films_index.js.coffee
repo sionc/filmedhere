@@ -9,6 +9,8 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
   # initialize constants and other variables
   SF_CENTER_LAT = 37.7674159
   SF_CENTER_LNG = -122.4747325
+  RELEASED_AFTER = 2011
+  DEFAULT_ZOOM_LEVEL = 18
   map = null
   sf = null
   markers = []
@@ -27,29 +29,44 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
     
     mapOptions = 
       center: sf
-      zoom: 13
+      zoom: DEFAULT_ZOOM_LEVEL 
     
     map = new google.maps.Map document.getElementById('map-canvas'), mapOptions
   
   initializeUIElements: ->
-    for film in @collection.models
+    # initially, just show a list of films released recently
+    recent_films = @collection.released_after(RELEASED_AFTER).models
+    for film in recent_films
+      
       # Create markers for each location associated with this film
       @createMarkers film
+      
+    # updates the zoom level and center of the map based on the current markers
+    @updateMapBounds()
+   
+    # render the UI elements in the nav bar
+    $(@el).html(@template(recent_films: recent_films, released_after: RELEASED_AFTER))
+    this
+    
+    # set up the film autocompletion control
+    @initializeAutocompletionLookup()
+    @initializeAutocompletionControl()
+  
+  initializeAutocompletionLookup: ->
+    
+    # put all the films in the autocompletion lookup
+    for film in @collection.models
       
       # Create a lookup table for autocomplete {'filmTitle (filmReleaseYear)' => filmId}
       key = film.get('title') + ' (' + film.get('release_year') + ')' 
       filmIdsByTitleReleaseYear[key] = film.get('id')
       filmKeys.push key
-   
-    # render the UI elements in the nav bar
-    $(@el).html(@template(films: @collection))
-    this
     
-    @initializeAutocompletion()
-  
-  initializeAutocompletion: ->
+  initializeAutocompletionControl: ->
+        
     # initialize the autocompletion search textbox
     $('#film-search-textbox').autocomplete(
+      
       # limit the number of results to 10
       source: (request, response) -> 
         results = $.ui.autocomplete.filter filmKeys, request.term
@@ -73,6 +90,9 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
       # creates new markers for each location associated with this film
       @createMarkers film
       
+      # updates the zoom level and center of the map based on the current markers
+      @updateMapBounds()
+      
       # update the UI elements in the nav bar
       $(@el).html(@template(film: film))
       this
@@ -83,8 +103,8 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
       $(@el).html(@template())
       this
     
-    # reinitialize autocompletion
-    @initializeAutocompletion()
+    # reinitialize the autocompletion control
+    @initializeAutocompletionControl()
   
   createMarkers: (film) ->
     title = film.get('title')
@@ -112,7 +132,7 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
       infoWindowOptions = 
         header: titleReleaseYear
         content1: rawAddress  
-        content2: 'San Francisco, CA'
+        content2: 'San Francisco area'
       
       # Create an info window for this marker
       @createInfoWindow marker, infoWindowOptions
@@ -120,6 +140,20 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
       # keep track of all markers on the page
       markers.push marker
 
+  updateMapBounds: ->
+    bounds = new google.maps.LatLngBounds()
+    
+    for marker in markers
+      bounds.extend marker.position
+    
+    # update the zoom level and center of the map based on the current markers
+    map.fitBounds(bounds)
+    
+    # if the map is zoomed in too much, switch to default zoom level
+    listener = google.maps.event.addListener map, "idle", ->
+      map.setZoom DEFAULT_ZOOM_LEVEL if map.getZoom() > DEFAULT_ZOOM_LEVEL
+      google.maps.event.removeListener(listener); 
+    
   clearMarkers: ->
     # clear all current markers on the map 
     for marker in markers

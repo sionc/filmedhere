@@ -8,10 +8,10 @@
 </form>
 
 <p class="navbar-text navbar-right">
-<% if @films?: %>
-  Showing filming locations in San Francisco, CA
+<% if @recent_films? and @released_after?: %>
+  Showing filming locations in the San Francisco area for films released in the year <%= @released_after %> or later
 <% else if @film?: %>
-  Showing filming locations for '<%= @film.get('title') %>' in San Francisco, CA
+  Showing filming locations for '<%= @film.get('title') %>' in the San Francisco area
 <% else: %>
   No filming locations found. Please try another film.
 <% end %>
