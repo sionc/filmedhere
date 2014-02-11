@@ -35,5 +35,5 @@ Filmedhere::Application.configure do
   config.active_support.deprecation = :stderr
   
   # Use a different cache store in production.
-  config.cache_store = :memory_store
+  config.cache_store = :null_store
 end
