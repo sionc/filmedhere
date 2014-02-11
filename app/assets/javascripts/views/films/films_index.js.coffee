@@ -29,7 +29,6 @@ class Filmedhere.Views.FilmsIndex extends Backbone.View
     
     mapOptions = 
       center: sf
-      zoom: DEFAULT_ZOOM_LEVEL 
     
     map = new google.maps.Map document.getElementById('map-canvas'), mapOptions
   
