@@ -26,4 +26,7 @@ Filmedhere::Application.configure do
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
+  
+  # Use a different cache store in production.
+  config.cache_store = :memory_store
 end

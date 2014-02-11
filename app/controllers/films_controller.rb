@@ -4,11 +4,26 @@ class FilmsController < ApplicationController
   # GET /films
   # GET /films.json
   def index
-    @films = Film.all
+    
+    # Attempt to fetch films from cache before fetching from server
+    @films = Rails.cache.read('films')
+    if @films.nil?
+      @films = Film.all
+      Rails.cache.write('films', @films)
+      Rails.logger.info "Writing 'films' to rails cache"
+    end
+    
+    # Attempt to fetch films as json from cache before fetching from server
+    @films_as_json = Rails.cache.read('films_as_json')
+    if @films_as_json.nil?
+      @films_as_json = @films.as_json(:include => :locations)
+      Rails.cache.write('films_as_json', @films_as_json)
+      Rails.logger.info "Writing 'films_as_json' to rails cache"
+    end
 
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @films, :include => :locations }
+      format.json { render json: @films_as_json }
     end
   end
 
